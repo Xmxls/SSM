@@ -71,6 +71,9 @@ public class EmployeeController {
 
     public static void main(String[] args) {
         System.out.println("he");
+        System.out.println("2321312");
+        System.out.println("13213");
+        System.out.println("23232131241312");
     }
 
 }
