@@ -69,4 +69,8 @@ public class EmployeeController {
         return "redirect:/employee/page/" + pageNum;
     }
 
+    public static void main(String[] args) {
+        System.out.println("he");
+    }
+
 }
