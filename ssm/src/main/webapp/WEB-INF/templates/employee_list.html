@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>员工列表</title>
+    <link rel="stylesheet" th:href="@{/static/css/index_work.css}">
+</head>
+<body>
+<div id="app">
+    <table>
+        <tr>
+            <th colspan="6">员工列表</th>
+        </tr>
+        <tr>
+            <td>序号</td>
+            <td>姓名</td>
+            <td>年龄</td>
+            <td>性别</td>
+            <td>邮箱</td>
+            <td>操作<a th:href="@{/to/add}">(添加)</a></td>
+        </tr>
+        <tr th:each="employee,status:${session.page.list}">
+            <td th:text="${status.count}"></td>
+            <td th:text="${employee.empName}"></td>
+            <td th:text="${employee.age}"></td>
+            <td th:text="${employee.sex}"></td>
+            <td th:text="${employee.email}"></td>
+            <td>
+                <a th:href="@{'/to/update/' + ${employee.empId}}">修改</a>
+                <a th:href="@{'/employee/' + ${employee.empId}}" @click="deleteEmployee">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div style="text-align: center">
+    <a th:if="${session.page.hasPreviousPage}" th:href="@{/employee/page/1}">首页</a>
+    <a th:if="${session.page.hasPreviousPage}" th:href="@{'/employee/page/' + ${session.page.prePage}}">上一页</a>
+    <span th:each="num:${session.page.navigatepageNums}">
+          <a th:if="${session.page.pageNum == num}" style="color:red" th:href="@{'/employee/page/' + ${num}}" th:text="'['+${num}+']'">1</a>
+          <a th:if="${session.page.pageNum != num}" th:href="@{'/employee/page/' + ${num}}" th:text="${num}">1</a>
+    </span>
+    <a th:if="${session.page.hasNextPage}" th:href="@{'/employee/page/'+${session.page.nextPage}}">下一页</a>
+    <a th:if="${session.page.hasNextPage}" th:href="@{'/employee/page/'+${session.page.pages}}">末页</a>
+</div>
+</body>
+
+<form id="delete_form" method="post">
+    <input type="hidden" name="_method" value="delete"/>
+</form>
+
+<script type="text/javascript" th:src="@{/static/js/vue.js}"></script>
+<script type="text/javascript">
+    var vue = new Vue({
+       el:"#app",
+       methods:{
+           deleteEmployee:function (event){
+               var delete_form = document.getElementById("delete_form");
+               delete_form.action = event.target.href;
+               delete_form.submit();
+               event.preventDefault();
+           }
+       }
+    });
+</script>
+</html>
