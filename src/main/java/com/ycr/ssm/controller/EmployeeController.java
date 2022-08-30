@@ -78,6 +78,8 @@ public class EmployeeController {
         System.out.println("23232131241312");
         System.out.println("pull test");
         System.out.println("GitEE test");
+        System.out.println("GitEE test2");
+        System.out.println("GitEE test3");
     }
 
 }
